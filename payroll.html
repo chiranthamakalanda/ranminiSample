@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLIIT - Payroll Management - HR System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://static.sliit.lk/wp-content/uploads/2017/12/sliit-web-logo.png" alt="SLIIT Logo" class="sliit-logo" onerror="this.style.display='none'; this.parentElement.classList.add('logo-fallback');">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="attendance.html">
+                            <i class="bi bi-clock-history"></i> Attendance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="payroll.html">
+                            <i class="bi bi-cash-coin"></i> Payroll
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="agent-profile.html">
+                            <i class="bi bi-person-badge"></i> Agent Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="application-tracker.html">
+                            <i class="bi bi-file-earmark-text"></i> Application Tracker
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="roaster.html">
+                            <i class="bi bi-calendar-week"></i> Roaster
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-4">
+        <div class="page-header">
+            <div class="container">
+                <h1><i class="bi bi-cash-coin"></i> Payroll Management</h1>
+                <p class="mb-0">Manage salaries for all staff categories</p>
+            </div>
+        </div>
+
+        <!-- Staff Category Cards -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-person-circle"></i> Trainee Associate</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="text-primary">Rs. 1,500</h3>
+                        <p class="text-muted">Per Day</p>
+                        <hr>
+                        <p><strong>Payment Type:</strong> Daily Wage</p>
+                        <p><strong>Calculation:</strong> Based on working days</p>
+                        <button class="btn btn-primary w-100" onclick="viewCategory('trainee')">
+                            View Employees
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-success">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="bi bi-person-check"></i> Junior Associate</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="text-success">Rs. 2,000</h3>
+                        <p class="text-muted">Per Day</p>
+                        <hr>
+                        <p><strong>Payment Type:</strong> Daily Wage</p>
+                        <p><strong>Calculation:</strong> Based on working days</p>
+                        <button class="btn btn-success w-100" onclick="viewCategory('junior')">
+                            View Employees
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-warning">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0"><i class="bi bi-briefcase"></i> Contract Staff</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="text-warning">Monthly Salary</h6>
+                        <ul class="list-unstyled">
+                            <li><strong>Grade 1:</strong> Rs. 80,000+</li>
+                            <li><strong>Grade 2:</strong> Rs. 60,000 - 70,000</li>
+                            <li><strong>Grade 3:</strong> Rs. 40,000 - 45,000</li>
+                        </ul>
+                        <hr>
+                        <p><strong>Payment Type:</strong> Monthly Fixed</p>
+                        <p><strong>Includes:</strong> Set leaves & week offs</p>
+                        <button class="btn btn-warning w-100" onclick="viewCategory('contract')">
+                            View Employees
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payroll Generation -->
+        <div class="card section-card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="bi bi-calculator"></i> Generate Payroll</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="form-label">Select Month</label>
+                        <input type="month" class="form-control" value="2024-01">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Staff Category</label>
+                        <select class="form-select">
+                            <option>All Categories</option>
+                            <option>Trainee Associate</option>
+                            <option>Junior Associate</option>
+                            <option>Contract Staff</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">&nbsp;</label>
+                        <button class="btn btn-primary w-100">
+                            <i class="bi bi-calculator"></i> Generate Payroll
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payroll Records -->
+        <div class="card section-card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-list-ul"></i> Payroll Records</h5>
+            </div>
+            <div class="card-body">
+                <!-- Search and Filter -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="search-box">
+                            <i class="bi bi-search"></i>
+                            <input type="text" class="form-control" placeholder="Search by name or ID...">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select">
+                            <option>All Categories</option>
+                            <option>Trainee Associate</option>
+                            <option>Junior Associate</option>
+                            <option>Contract Staff</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-success w-100">
+                            <i class="bi bi-download"></i> Export Payroll
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Payroll Table -->
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Grade</th>
+                                <th>Working Days</th>
+                                <th>Base Salary</th>
+                                <th>Deductions</th>
+                                <th>Net Salary</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>EMP001</td>
+                                <td>John Doe</td>
+                                <td><span class="badge bg-primary">Trainee Associate</span></td>
+                                <td>-</td>
+                                <td>22</td>
+                                <td>Rs. 33,000</td>
+                                <td>Rs. 0</td>
+                                <td><strong>Rs. 33,000</strong></td>
+                                <td><span class="badge bg-success">Paid</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewPayroll('EMP001')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success" onclick="downloadSlip('EMP001')">
+                                        <i class="bi bi-download"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>EMP002</td>
+                                <td>Jane Smith</td>
+                                <td><span class="badge bg-success">Junior Associate</span></td>
+                                <td>-</td>
+                                <td>22</td>
+                                <td>Rs. 44,000</td>
+                                <td>Rs. 0</td>
+                                <td><strong>Rs. 44,000</strong></td>
+                                <td><span class="badge bg-success">Paid</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewPayroll('EMP002')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success" onclick="downloadSlip('EMP002')">
+                                        <i class="bi bi-download"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>EMP003</td>
+                                <td>Mike Johnson</td>
+                                <td><span class="badge bg-warning">Contract Staff</span></td>
+                                <td>Grade 1</td>
+                                <td>-</td>
+                                <td>Rs. 85,000</td>
+                                <td>Rs. 5,000</td>
+                                <td><strong>Rs. 80,000</strong></td>
+                                <td><span class="badge bg-warning">Pending</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewPayroll('EMP003')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success" onclick="downloadSlip('EMP003')">
+                                        <i class="bi bi-download"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>EMP004</td>
+                                <td>Sarah Williams</td>
+                                <td><span class="badge bg-warning">Contract Staff</span></td>
+                                <td>Grade 2</td>
+                                <td>-</td>
+                                <td>Rs. 65,000</td>
+                                <td>Rs. 3,000</td>
+                                <td><strong>Rs. 62,000</strong></td>
+                                <td><span class="badge bg-success">Paid</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewPayroll('EMP004')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success" onclick="downloadSlip('EMP004')">
+                                        <i class="bi bi-download"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>EMP005</td>
+                                <td>David Brown</td>
+                                <td><span class="badge bg-warning">Contract Staff</span></td>
+                                <td>Grade 3</td>
+                                <td>-</td>
+                                <td>Rs. 42,000</td>
+                                <td>Rs. 2,000</td>
+                                <td><strong>Rs. 40,000</strong></td>
+                                <td><span class="badge bg-success">Paid</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewPayroll('EMP005')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success" onclick="downloadSlip('EMP005')">
+                                        <i class="bi bi-download"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Salary Summary -->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card text-center bg-primary text-white">
+                    <div class="card-body">
+                        <h6>Total Employees</h6>
+                        <h2>150</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center bg-success text-white">
+                    <div class="card-body">
+                        <h6>Total Payroll</h6>
+                        <h2>Rs. 4,500,000</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center bg-warning text-white">
+                    <div class="card-body">
+                        <h6>Pending Payments</h6>
+                        <h2>5</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center bg-info text-white">
+                    <div class="card-body">
+                        <h6>Paid This Month</h6>
+                        <h2>145</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <img src="https://static.sliit.lk/wp-content/uploads/2017/12/sliit-web-logo.png" alt="SLIIT Logo" class="footer-logo mb-2" onerror="this.style.display='none';">
+            <p class="mb-0"><strong>Sri Lanka Institute of Information Technology (SLIIT)</strong></p>
+            <p class="mb-0">&copy; 2024 HR Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        function viewCategory(category) {
+            alert('Viewing employees in category: ' + category);
+        }
+
+        function viewPayroll(empId) {
+            alert('Viewing payroll details for Employee ID: ' + empId);
+        }
+
+        function downloadSlip(empId) {
+            alert('Downloading payslip for Employee ID: ' + empId);
+        }
+    </script>
+</body>
+</html>
+

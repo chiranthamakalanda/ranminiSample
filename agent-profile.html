@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLIIT - Agent Profile - HR System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://static.sliit.lk/wp-content/uploads/2017/12/sliit-web-logo.png" alt="SLIIT Logo" class="sliit-logo" onerror="this.style.display='none'; this.parentElement.classList.add('logo-fallback');">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="attendance.html">
+                            <i class="bi bi-clock-history"></i> Attendance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="payroll.html">
+                            <i class="bi bi-cash-coin"></i> Payroll
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="agent-profile.html">
+                            <i class="bi bi-person-badge"></i> Agent Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="application-tracker.html">
+                            <i class="bi bi-file-earmark-text"></i> Application Tracker
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="roaster.html">
+                            <i class="bi bi-calendar-week"></i> Roaster
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-4">
+        <div class="page-header">
+            <div class="container">
+                <h1><i class="bi bi-person-badge"></i> Agent Profile Management</h1>
+                <p class="mb-0">Comprehensive employee profiles and records</p>
+            </div>
+        </div>
+
+        <!-- Search and Add -->
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" class="form-control" placeholder="Search by name, ID, email, or designation...">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary w-100" onclick="addNewAgent()">
+                    <i class="bi bi-person-plus"></i> Add New Agent
+                </button>
+            </div>
+        </div>
+
+        <!-- Employee List -->
+        <div class="card section-card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-people"></i> Employee List</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Photo</th>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Contact</th>
+                                <th>Designation</th>
+                                <th>Start Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>EMP001</td>
+                                <td><img src="https://via.placeholder.com/40" class="rounded-circle" alt="Photo"></td>
+                                <td>John Doe</td>
+                                <td>john.doe@example.com</td>
+                                <td>+94 77 123 4567</td>
+                                <td>Trainee Associate</td>
+                                <td>2024-01-01</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewProfile('EMP001')">
+                                        <i class="bi bi-eye"></i> View
+                                    </button>
+                                    <button class="btn btn-sm btn-warning" onclick="editProfile('EMP001')">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>EMP002</td>
+                                <td><img src="https://via.placeholder.com/40" class="rounded-circle" alt="Photo"></td>
+                                <td>Jane Smith</td>
+                                <td>jane.smith@example.com</td>
+                                <td>+94 77 234 5678</td>
+                                <td>Junior Associate</td>
+                                <td>2023-12-15</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewProfile('EMP002')">
+                                        <i class="bi bi-eye"></i> View
+                                    </button>
+                                    <button class="btn btn-sm btn-warning" onclick="editProfile('EMP002')">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>EMP003</td>
+                                <td><img src="https://via.placeholder.com/40" class="rounded-circle" alt="Photo"></td>
+                                <td>Mike Johnson</td>
+                                <td>mike.johnson@example.com</td>
+                                <td>+94 77 345 6789</td>
+                                <td>Contract Staff - Grade 1</td>
+                                <td>2023-11-01</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewProfile('EMP003')">
+                                        <i class="bi bi-eye"></i> View
+                                    </button>
+                                    <button class="btn btn-sm btn-warning" onclick="editProfile('EMP003')">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Detail View (Example) -->
+        <div class="card section-card" id="profileDetail" style="display: none;">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="bi bi-person-circle"></i> Employee Profile Details</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Left Column -->
+                    <div class="col-md-4">
+                        <div class="text-center mb-4">
+                            <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="Profile Photo">
+                            <h4>John Doe</h4>
+                            <p class="text-muted">EMP001</p>
+                            <span class="badge bg-success">Active</span>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-md-8">
+                        <!-- Personal Details -->
+                        <div class="mb-4">
+                            <h5 class="section-title">Personal Details</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><strong>Full Name:</strong></label>
+                                    <p>John Doe</p>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><strong>Email:</strong></label>
+                                    <p>john.doe@example.com</p>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><strong>Contact Number:</strong></label>
+                                    <p>+94 77 123 4567</p>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><strong>Emergency Contact:</strong></label>
+                                    <p>+94 77 999 8888 (Jane Doe - Spouse)</p>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label class="form-label"><strong>Address:</strong></label>
+                                    <p>123 Main Street, Colombo 05, Sri Lanka</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Employment Details -->
+                        <div class="mb-4">
+                            <h5 class="section-title">Employment Details</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><strong>Start Date:</strong></label>
+                                    <p>2024-01-01</p>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><strong>Designation:</strong></label>
+                                    <p>Trainee Associate</p>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label"><strong>Salary:</strong></label>
+                                    <p>Rs. 1,500 per day</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Academic Process -->
+                        <div class="mb-4">
+                            <h5 class="section-title">Academic Qualifications</h5>
+                            <ul>
+                                <li>Bachelor's Degree in Computer Science - University of Colombo (2020-2023)</li>
+                                <li>GCE Advanced Level - ABC College (2018)</li>
+                            </ul>
+                        </div>
+
+                        <!-- Documents -->
+                        <div class="mb-4">
+                            <h5 class="section-title">Documents</h5>
+                            <div class="document-item">
+                                <i class="bi bi-file-earmark-pdf"></i> <strong>Birth Certificate</strong>
+                                <button class="btn btn-sm btn-outline-primary float-end">View</button>
+                            </div>
+                            <div class="document-item">
+                                <i class="bi bi-file-earmark-pdf"></i> <strong>NIC</strong>
+                                <button class="btn btn-sm btn-outline-primary float-end">View</button>
+                            </div>
+                            <div class="document-item">
+                                <i class="bi bi-file-earmark-pdf"></i> <strong>CV</strong>
+                                <button class="btn btn-sm btn-outline-primary float-end">View</button>
+                            </div>
+                            <div class="document-item">
+                                <i class="bi bi-file-earmark-pdf"></i> <strong>Bank Details</strong>
+                                <button class="btn btn-sm btn-outline-primary float-end">View</button>
+                            </div>
+                        </div>
+
+                        <!-- Attendance Summary -->
+                        <div class="mb-4">
+                            <h5 class="section-title">Attendance Summary</h5>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label"><strong>Select Month & Year</strong></label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <select class="form-select" id="attendanceMonth">
+                                                    <option value="1">January</option>
+                                                    <option value="2">February</option>
+                                                    <option value="3">March</option>
+                                                    <option value="4">April</option>
+                                                    <option value="5">May</option>
+                                                    <option value="6">June</option>
+                                                    <option value="7">July</option>
+                                                    <option value="8">August</option>
+                                                    <option value="9">September</option>
+                                                    <option value="10">October</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">December</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="number" class="form-control" id="attendanceYear" value="2024" min="2020" max="2030">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="attendanceSummaryDisplay">
+                                        <p class="text-muted">Select month and year to view summary</p>
+                                    </div>
+                                    <div class="mt-3">
+                                        <button class="btn btn-sm btn-primary" onclick="viewAttendance()">
+                                            <i class="bi bi-clock-history"></i> View Attendance Details
+                                        </button>
+                                        <button class="btn btn-sm btn-success" onclick="downloadMonthlyAttendance()">
+                                            <i class="bi bi-download"></i> Download Monthly Report
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Leave Management -->
+                        <div class="mb-4">
+                            <h5 class="section-title">Leave Management</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Leaves Taken:</strong> 2 days</p>
+                                    <p><strong>Leaves Remaining:</strong> 8 days</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Complaints -->
+                        <div class="mb-4">
+                            <h5 class="section-title">Complaints</h5>
+                            <div class="alert alert-warning">
+                                <strong>No complaints recorded</strong>
+                            </div>
+                            <button class="btn btn-sm btn-warning" onclick="addComplaint()">
+                                <i class="bi bi-exclamation-triangle"></i> Add Complaint
+                            </button>
+                        </div>
+
+                        <!-- Comments -->
+                        <div class="mb-4">
+                            <h5 class="section-title">Comments</h5>
+                            <div class="mb-3">
+                                <textarea class="form-control" rows="3" placeholder="Add comments..."></textarea>
+                            </div>
+                            <button class="btn btn-primary" onclick="saveComment()">
+                                <i class="bi bi-save"></i> Save Comment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <img src="https://static.sliit.lk/wp-content/uploads/2017/12/sliit-web-logo.png" alt="SLIIT Logo" class="footer-logo mb-2" onerror="this.style.display='none';">
+            <p class="mb-0"><strong>Sri Lanka Institute of Information Technology (SLIIT)</strong></p>
+            <p class="mb-0">&copy; 2024 HR Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/attendance.js"></script>
+    <script>
+        let currentEmployeeId = null;
+
+        function viewProfile(empId) {
+            currentEmployeeId = empId;
+            document.getElementById('profileDetail').style.display = 'block';
+            document.getElementById('profileDetail').scrollIntoView({ behavior: 'smooth' });
+            
+            // Set current month
+            const now = new Date();
+            document.getElementById('attendanceMonth').value = now.getMonth() + 1;
+            document.getElementById('attendanceYear').value = now.getFullYear();
+            
+            // Load attendance summary
+            loadAttendanceSummary(empId);
+            
+            // Add event listeners for month/year change
+            document.getElementById('attendanceMonth').addEventListener('change', function() {
+                loadAttendanceSummary(empId);
+            });
+            document.getElementById('attendanceYear').addEventListener('change', function() {
+                loadAttendanceSummary(empId);
+            });
+        }
+
+        function loadAttendanceSummary(empId) {
+            if (!empId) return;
+            
+            const month = parseInt(document.getElementById('attendanceMonth').value);
+            const year = parseInt(document.getElementById('attendanceYear').value);
+            
+            const summary = attendanceManager.getMonthlySummary(empId, year, month);
+            const employee = attendanceManager.getEmployee(empId);
+            
+            let html = `
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h6 class="card-title">Attendance Summary for ${attendanceManager.getMonthName(month)} ${year}</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Full Days:</strong> ${summary.fullDays}</p>
+                                <p><strong>Half Days:</strong> ${summary.halfDays}</p>
+                                <p><strong>Short Leaves:</strong> ${summary.shortLeaves}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Total Attendance Value:</strong> ${summary.totalValue}</p>
+                                <p><strong>Working Days:</strong> ${summary.workingDays}</p>
+                                ${employee && employee.isContract ? `<p><strong>Overtime Hours:</strong> ${summary.totalOT}</p>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('attendanceSummaryDisplay').innerHTML = html;
+        }
+
+        function editProfile(empId) {
+            alert('Edit profile for Employee ID: ' + empId);
+        }
+
+        function addNewAgent() {
+            alert('Add new agent form would open here');
+        }
+
+        function viewAttendance() {
+            window.location.href = 'attendance.html';
+        }
+
+        function downloadMonthlyAttendance() {
+            if (!currentEmployeeId) {
+                alert('Please select an employee first');
+                return;
+            }
+            
+            const month = parseInt(document.getElementById('attendanceMonth').value);
+            const year = parseInt(document.getElementById('attendanceYear').value);
+            
+            attendanceManager.downloadMonthlyAttendance(currentEmployeeId, year, month);
+        }
+
+        function addComplaint() {
+            alert('Add complaint form would open here');
+        }
+
+        function saveComment() {
+            alert('Comment saved successfully!');
+        }
+    </script>
+</body>
+</html>
+

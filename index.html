@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLIIT - HR Management System - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://static.sliit.lk/wp-content/uploads/2017/12/sliit-web-logo.png" alt="SLIIT Logo" class="sliit-logo" onerror="this.style.display='none'; this.parentElement.classList.add('logo-fallback');">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            <i class="bi bi-house-door"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="attendance.html">
+                            <i class="bi bi-clock-history"></i> Attendance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="payroll.html">
+                            <i class="bi bi-cash-coin"></i> Payroll
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="agent-profile.html">
+                            <i class="bi bi-person-badge"></i> Agent Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="application-tracker.html">
+                            <i class="bi bi-file-earmark-text"></i> Application Tracker
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="roaster.html">
+                            <i class="bi bi-calendar-week"></i> Roaster
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-4">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </h1>
+            </div>
+        </div>
+
+        <!-- Feature Cards -->
+        <div class="row g-4">
+            <!-- Attendance Card -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm hover-card">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mb-3">
+                            <i class="bi bi-clock-history"></i>
+                        </div>
+                        <h5 class="card-title">Attendance Management</h5>
+                        <p class="card-text">Track employee attendance using fingerprint scanner or link-based system.</p>
+                        <a href="attendance.html" class="btn btn-primary">
+                            <i class="bi bi-arrow-right"></i> Go to Attendance
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payroll Card -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm hover-card">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mb-3">
+                            <i class="bi bi-cash-coin"></i>
+                        </div>
+                        <h5 class="card-title">Payroll Management</h5>
+                        <p class="card-text">Manage salaries for Trainee Associates, Junior Associates, and Contract Staff.</p>
+                        <a href="payroll.html" class="btn btn-primary">
+                            <i class="bi bi-arrow-right"></i> Go to Payroll
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent Profile Card -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm hover-card">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mb-3">
+                            <i class="bi bi-person-badge"></i>
+                        </div>
+                        <h5 class="card-title">Agent Profile</h5>
+                        <p class="card-text">Comprehensive employee profiles with personal details, documents, and records.</p>
+                        <a href="agent-profile.html" class="btn btn-primary">
+                            <i class="bi bi-arrow-right"></i> Go to Profiles
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Application Tracker Card -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm hover-card">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mb-3">
+                            <i class="bi bi-file-earmark-text"></i>
+                        </div>
+                        <h5 class="card-title">Application Tracker</h5>
+                        <p class="card-text">Track CVs and job applications throughout the hiring process.</p>
+                        <a href="application-tracker.html" class="btn btn-primary">
+                            <i class="bi bi-arrow-right"></i> Go to Tracker
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Roaster Card -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm hover-card">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mb-3">
+                            <i class="bi bi-calendar-week"></i>
+                        </div>
+                        <h5 class="card-title">Roaster Management</h5>
+                        <p class="card-text">Manage employee schedules, shifts, and work assignments.</p>
+                        <a href="roaster.html" class="btn btn-primary">
+                            <i class="bi bi-arrow-right"></i> Go to Roaster
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h3 class="mb-3">Quick Statistics</h3>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center bg-info text-white">
+                    <div class="card-body">
+                        <h2>150</h2>
+                        <p class="mb-0">Total Employees</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center bg-success text-white">
+                    <div class="card-body">
+                        <h2>142</h2>
+                        <p class="mb-0">Present Today</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center bg-warning text-white">
+                    <div class="card-body">
+                        <h2>8</h2>
+                        <p class="mb-0">On Leave</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center bg-danger text-white">
+                    <div class="card-body">
+                        <h2>25</h2>
+                        <p class="mb-0">Pending Applications</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <img src="https://static.sliit.lk/wp-content/uploads/2017/12/sliit-web-logo.png" alt="SLIIT Logo" class="footer-logo mb-2" onerror="this.style.display='none';">
+            <p class="mb-0"><strong>Sri Lanka Institute of Information Technology (SLIIT)</strong></p>
+            <p class="mb-0">&copy; 2024 HR Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+

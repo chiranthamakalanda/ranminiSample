@@ -1,0 +1,25 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Shield Background -->
+  <path d="M 100 20 L 180 50 L 180 150 L 100 180 L 20 150 L 20 50 Z" fill="url(#grad1)" stroke="#000" stroke-width="3"/>
+  <!-- Grid Pattern -->
+  <rect x="40" y="60" width="20" height="20" fill="#4a5568" opacity="0.3"/>
+  <rect x="70" y="60" width="20" height="20" fill="#4a5568" opacity="0.3"/>
+  <rect x="100" y="60" width="20" height="20" fill="#4a5568" opacity="0.3"/>
+  <rect x="130" y="60" width="20" height="20" fill="#4a5568" opacity="0.3"/>
+  <rect x="40" y="90" width="20" height="20" fill="#4a5568" opacity="0.3"/>
+  <rect x="70" y="90" width="20" height="20" fill="#4a5568" opacity="0.3"/>
+  <rect x="100" y="90" width="20" height="20" fill="#4a5568" opacity="0.3"/>
+  <rect x="130" y="90" width="20" height="20" fill="#4a5568" opacity="0.3"/>
+  <!-- Lion Symbol (Simplified) -->
+  <circle cx="100" cy="75" r="8" fill="#ff6b35"/>
+  <!-- SLIIT Text -->
+  <text x="100" y="130" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ff6b35" text-anchor="middle">SLIIT</text>
+</svg>
+
+

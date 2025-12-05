@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLIIT - Attendance Management - HR System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://static.sliit.lk/wp-content/uploads/2017/12/sliit-web-logo.png" alt="SLIIT Logo" class="sliit-logo" onerror="this.style.display='none'; this.parentElement.classList.add('logo-fallback');">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="attendance.html">
+                            <i class="bi bi-clock-history"></i> Attendance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="payroll.html">
+                            <i class="bi bi-cash-coin"></i> Payroll
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="agent-profile.html">
+                            <i class="bi bi-person-badge"></i> Agent Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="application-tracker.html">
+                            <i class="bi bi-file-earmark-text"></i> Application Tracker
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="roaster.html">
+                            <i class="bi bi-calendar-week"></i> Roaster
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-4">
+        <div class="page-header">
+            <div class="container">
+                <h1><i class="bi bi-clock-history"></i> Attendance Management</h1>
+                <p class="mb-0">Track employee attendance using multiple methods</p>
+            </div>
+        </div>
+
+        <!-- Attendance Methods -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card attendance-method-card h-100" id="fingerprintMethod">
+                    <div class="card-body text-center">
+                        <i class="bi bi-fingerprint" style="font-size: 4rem; color: #0d6efd;"></i>
+                        <h4 class="mt-3">Fingerprint Tracker</h4>
+                        <p class="text-muted">Employees can mark attendance using fingerprint scanner</p>
+                        <button class="btn btn-primary" onclick="openFingerprintModal()">
+                            <i class="bi bi-fingerprint"></i> Mark Attendance
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card attendance-method-card h-100" id="linkMethod">
+                    <div class="card-body text-center">
+                        <i class="bi bi-link-45deg" style="font-size: 4rem; color: #0d6efd;"></i>
+                        <h4 class="mt-3">Link-Based Tracker</h4>
+                        <p class="text-muted">Share a link with agents to mark their attendance</p>
+                        <button class="btn btn-primary" onclick="openLinkModal()">
+                            <i class="bi bi-link-45deg"></i> Generate Link
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card attendance-method-card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-gear" style="font-size: 4rem; color: #0d6efd;"></i>
+                        <h4 class="mt-3">Settings</h4>
+                        <p class="text-muted">Customize attendance rules, roles, and salaries</p>
+                        <button class="btn btn-primary" onclick="openSettingsModal()">
+                            <i class="bi bi-gear"></i> Configure Settings
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendance Records -->
+        <div class="card section-card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-list-ul"></i> Today's Attendance Records</h5>
+            </div>
+            <div class="card-body">
+                <!-- Search and Filter -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="search-box">
+                            <i class="bi bi-search"></i>
+                            <input type="text" class="form-control" placeholder="Search by name or ID...">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="date" class="form-control" value="2024-01-15">
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-success w-100">
+                            <i class="bi bi-download"></i> Download Report
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Attendance Table -->
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Total Hours</th>
+                                <th>Status</th>
+                                <th>Method</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>EMP001</td>
+                                <td>John Doe</td>
+                                <td>09:00 AM</td>
+                                <td>05:30 PM</td>
+                                <td>8h 30m</td>
+                                <td><span class="badge bg-success">Present</span></td>
+                                <td><i class="bi bi-fingerprint"></i> Fingerprint</td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewDetails('EMP001')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>EMP002</td>
+                                <td>Jane Smith</td>
+                                <td>08:45 AM</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td><span class="badge bg-warning">Checked In</span></td>
+                                <td><i class="bi bi-link-45deg"></i> Link</td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewDetails('EMP002')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>EMP003</td>
+                                <td>Mike Johnson</td>
+                                <td>09:15 AM</td>
+                                <td>06:00 PM</td>
+                                <td>8h 45m</td>
+                                <td><span class="badge bg-success">Present</span></td>
+                                <td><i class="bi bi-fingerprint"></i> Fingerprint</td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewDetails('EMP003')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>EMP004</td>
+                                <td>Sarah Williams</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td><span class="badge bg-danger">Absent</span></td>
+                                <td>-</td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewDetails('EMP004')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monthly Attendance Summary -->
+        <div class="card section-card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="bi bi-calendar-month"></i> Monthly Attendance Summary</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card stats-card">
+                            <div class="card-body">
+                                <h6 class="text-muted">Total Working Days</h6>
+                                <h3>22</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stats-card">
+                            <div class="card-body">
+                                <h6 class="text-muted">Present</h6>
+                                <h3 class="text-success">20</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stats-card">
+                            <div class="card-body">
+                                <h6 class="text-muted">Absent</h6>
+                                <h3 class="text-danger">2</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stats-card">
+                            <div class="card-body">
+                                <h6 class="text-muted">On Leave</h6>
+                                <h3 class="text-warning">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-primary">
+                        <i class="bi bi-download"></i> Download Monthly Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fingerprint Modal -->
+    <div class="modal fade" id="fingerprintModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-fingerprint"></i> Fingerprint Attendance</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="bi bi-fingerprint" style="font-size: 5rem; color: #0d6efd;"></i>
+                    <h4 class="mt-3">Place your finger on the scanner</h4>
+                    <p class="text-muted">Please ensure your finger is clean and dry</p>
+                    <div class="mt-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Scanning...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link Generation Modal -->
+    <div class="modal fade" id="linkModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-link-45deg"></i> Generate Attendance Link</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Select Employee</strong></label>
+                        <select class="form-select" id="linkEmployeeSelect">
+                            <option value="">-- Select Employee --</option>
+                        </select>
+                        <small class="text-muted">Select an employee to generate their personalized attendance link</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Link Validity</strong></label>
+                        <select class="form-select" id="linkValidity">
+                            <option value="today">Today Only</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                            <option value="custom">Custom Date Range</option>
+                        </select>
+                    </div>
+                    <div class="mb-3" id="customDateRange" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="linkStartDate">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="linkEndDate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Generated Link</strong></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="generatedLink" placeholder="Select employee and click 'Generate Link'" readonly>
+                            <button class="btn btn-outline-secondary" onclick="copyLink()">
+                                <i class="bi bi-clipboard"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i> Share this link with the employee to mark their attendance. The link will identify the employee automatically.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="generateAttendanceLink()">
+                        <i class="bi bi-link-45deg"></i> Generate Link
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="shareLink()" id="shareLinkBtn" style="display: none;">
+                        <i class="bi bi-share"></i> Share Link
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Attendance Settings Modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-gear"></i> Attendance Settings</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4">
+                        <h6 class="mb-3">Attendance Values</h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Full Day Value</label>
+                                <input type="number" class="form-control" id="fullDayValue" value="1" step="0.1" min="0">
+                                <small class="text-muted">Value for a full day attendance (default: 1)</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Half Day Value</label>
+                                <input type="number" class="form-control" id="halfDayValue" value="0.5" step="0.1" min="0">
+                                <small class="text-muted">Value for a half day attendance (default: 0.5)</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="mb-3">Short Leave Rules</h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Short Leave Value (First 2)</label>
+                                <input type="number" class="form-control" id="shortLeaveValue" value="1" step="0.1" min="0">
+                                <small class="text-muted">Value for first 2 short leaves per month (default: 1)</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Short Leave Penalty (After 2)</label>
+                                <input type="number" class="form-control" id="shortLeavePenalty" value="0.5" step="0.1" min="0">
+                                <small class="text-muted">Value for additional short leaves (default: 0.5)</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="mb-3">Short Leaves Per Role</h6>
+                        <div id="roleShortLeaves">
+                            <!-- Will be populated dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="mb-3">Role Management</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Role</th>
+                                        <th>Salary</th>
+                                        <th>Short Leaves</th>
+                                        <th>Contract Staff</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rolesTableBody">
+                                    <!-- Will be populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <button class="btn btn-sm btn-primary" onclick="addNewRole()">
+                            <i class="bi bi-plus-circle"></i> Add New Role
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveAttendanceSettings()">
+                        <i class="bi bi-save"></i> Save Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <img src="https://static.sliit.lk/wp-content/uploads/2017/12/sliit-web-logo.png" alt="SLIIT Logo" class="footer-logo mb-2" onerror="this.style.display='none';">
+            <p class="mb-0"><strong>Sri Lanka Institute of Information Technology (SLIIT)</strong></p>
+            <p class="mb-0">&copy; 2024 HR Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/attendance.js"></script>
+    <script>
+        // Load employees into link generation modal
+        function loadEmployeesForLink() {
+            const employees = JSON.parse(localStorage.getItem('employees') || '[]');
+            const select = document.getElementById('linkEmployeeSelect');
+            select.innerHTML = '<option value="">-- Select Employee --</option>';
+            
+            employees.forEach(emp => {
+                const option = document.createElement('option');
+                option.value = emp.id;
+                option.textContent = `${emp.name} (${emp.id})`;
+                select.appendChild(option);
+            });
+        }
+
+        function openFingerprintModal() {
+            const modal = new bootstrap.Modal(document.getElementById('fingerprintModal'));
+            modal.show();
+        }
+
+        function openLinkModal() {
+            loadEmployeesForLink();
+            document.getElementById('generatedLink').value = '';
+            document.getElementById('shareLinkBtn').style.display = 'none';
+            const modal = new bootstrap.Modal(document.getElementById('linkModal'));
+            modal.show();
+        }
+
+        function generateAttendanceLink() {
+            const empId = document.getElementById('linkEmployeeSelect').value;
+            if (!empId) {
+                alert('Please select an employee');
+                return;
+            }
+            
+            const validity = document.getElementById('linkValidity').value;
+            const link = attendanceManager.generateLink(empId, validity);
+            
+            document.getElementById('generatedLink').value = link;
+            document.getElementById('shareLinkBtn').style.display = 'inline-block';
+        }
+
+        function copyLink() {
+            const linkInput = document.getElementById('generatedLink');
+            if (!linkInput.value) {
+                alert('Please generate a link first');
+                return;
+            }
+            linkInput.select();
+            document.execCommand('copy');
+            
+            // Show toast notification
+            const btn = event.target.closest('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="bi bi-check"></i> Copied!';
+            btn.classList.add('btn-success');
+            btn.classList.remove('btn-outline-secondary');
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.remove('btn-success');
+                btn.classList.add('btn-outline-secondary');
+            }, 2000);
+        }
+
+        function shareLink() {
+            const link = document.getElementById('generatedLink').value;
+            if (!link) {
+                alert('Please generate a link first');
+                return;
+            }
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Attendance Link',
+                    text: 'Click this link to mark your attendance',
+                    url: link
+                });
+            } else {
+                copyLink();
+                alert('Link copied to clipboard! Share it with the employee.');
+            }
+        }
+
+        function openSettingsModal() {
+            loadSettings();
+            const modal = new bootstrap.Modal(document.getElementById('settingsModal'));
+            modal.show();
+        }
+
+        function loadSettings() {
+            const rules = attendanceManager.getRules();
+            const settings = attendanceManager.getSettings();
+            
+            // Load attendance values
+            document.getElementById('fullDayValue').value = rules.fullDay || 1;
+            document.getElementById('halfDayValue').value = rules.halfDay || 0.5;
+            document.getElementById('shortLeaveValue').value = rules.shortLeaveValue || 1;
+            document.getElementById('shortLeavePenalty').value = rules.shortLeavePenalty || 0.5;
+            
+            // Load roles
+            loadRolesTable(settings.roles || []);
+        }
+
+        function loadRolesTable(roles) {
+            const tbody = document.getElementById('rolesTableBody');
+            tbody.innerHTML = '';
+            
+            roles.forEach((role, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><input type="text" class="form-control form-control-sm" value="${role.name}" data-field="name"></td>
+                    <td><input type="number" class="form-control form-control-sm" value="${role.salary}" data-field="salary"></td>
+                    <td><input type="number" class="form-control form-control-sm" value="${role.shortLeaves}" data-field="shortLeaves"></td>
+                    <td><input type="checkbox" class="form-check-input" ${role.isContract ? 'checked' : ''} data-field="isContract"></td>
+                    <td><button class="btn btn-sm btn-danger" onclick="removeRole(${index})"><i class="bi bi-trash"></i></button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function addNewRole() {
+            const settings = attendanceManager.getSettings();
+            const roles = settings.roles || [];
+            roles.push({
+                id: 'new_' + Date.now(),
+                name: 'New Role',
+                salary: 0,
+                shortLeaves: 2,
+                isContract: false
+            });
+            loadRolesTable(roles);
+        }
+
+        function removeRole(index) {
+            if (confirm('Are you sure you want to remove this role?')) {
+                const settings = attendanceManager.getSettings();
+                const roles = settings.roles || [];
+                roles.splice(index, 1);
+                loadRolesTable(roles);
+            }
+        }
+
+        function saveAttendanceSettings() {
+            const rules = {
+                fullDay: parseFloat(document.getElementById('fullDayValue').value) || 1,
+                halfDay: parseFloat(document.getElementById('halfDayValue').value) || 0.5,
+                shortLeaveValue: parseFloat(document.getElementById('shortLeaveValue').value) || 1,
+                shortLeavePenalty: parseFloat(document.getElementById('shortLeavePenalty').value) || 0.5,
+                shortLeaves: {}
+            };
+            
+            // Get role-specific short leaves
+            const tbody = document.getElementById('rolesTableBody');
+            const rows = tbody.querySelectorAll('tr');
+            rows.forEach(row => {
+                const nameInput = row.querySelector('[data-field="name"]');
+                const shortLeavesInput = row.querySelector('[data-field="shortLeaves"]');
+                if (nameInput && shortLeavesInput) {
+                    const roleId = nameInput.value.toLowerCase().replace(/\s+/g, '_');
+                    rules.shortLeaves[roleId] = parseInt(shortLeavesInput.value) || 2;
+                }
+            });
+            
+            rules.shortLeaves.default = 2;
+            
+            // Save roles
+            const settings = {
+                roles: []
+            };
+            
+            rows.forEach(row => {
+                const nameInput = row.querySelector('[data-field="name"]');
+                const salaryInput = row.querySelector('[data-field="salary"]');
+                const shortLeavesInput = row.querySelector('[data-field="shortLeaves"]');
+                const isContractCheck = row.querySelector('[data-field="isContract"]');
+                
+                if (nameInput) {
+                    settings.roles.push({
+                        id: nameInput.value.toLowerCase().replace(/\s+/g, '_'),
+                        name: nameInput.value,
+                        salary: parseFloat(salaryInput.value) || 0,
+                        shortLeaves: parseInt(shortLeavesInput.value) || 2,
+                        isContract: isContractCheck.checked
+                    });
+                }
+            });
+            
+            attendanceManager.updateRules(rules);
+            attendanceManager.updateSettings(settings);
+            
+            alert('Settings saved successfully!');
+            bootstrap.Modal.getInstance(document.getElementById('settingsModal')).hide();
+        }
+
+        // Handle link validity change
+        document.addEventListener('DOMContentLoaded', function() {
+            const validitySelect = document.getElementById('linkValidity');
+            if (validitySelect) {
+                validitySelect.addEventListener('change', function() {
+                    const customRange = document.getElementById('customDateRange');
+                    if (this.value === 'custom') {
+                        customRange.style.display = 'block';
+                    } else {
+                        customRange.style.display = 'none';
+                    }
+                });
+            }
+        });
+
+        function viewDetails(empId) {
+            alert('Viewing details for Employee ID: ' + empId);
+        }
+    </script>
+</body>
+</html>
+

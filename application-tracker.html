@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLIIT - Application Tracker - HR System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://static.sliit.lk/wp-content/uploads/2017/12/sliit-web-logo.png" alt="SLIIT Logo" class="sliit-logo" onerror="this.style.display='none'; this.parentElement.classList.add('logo-fallback');">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="attendance.html">
+                            <i class="bi bi-clock-history"></i> Attendance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="payroll.html">
+                            <i class="bi bi-cash-coin"></i> Payroll
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="agent-profile.html">
+                            <i class="bi bi-person-badge"></i> Agent Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="application-tracker.html">
+                            <i class="bi bi-file-earmark-text"></i> Application Tracker
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="roaster.html">
+                            <i class="bi bi-calendar-week"></i> Roaster
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-4">
+        <div class="page-header">
+            <div class="container">
+                <h1><i class="bi bi-file-earmark-text"></i> Application (CV) Tracker</h1>
+                <p class="mb-0">Track job applications and CVs throughout the hiring process</p>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card text-center bg-primary text-white">
+                    <div class="card-body">
+                        <h2>125</h2>
+                        <p class="mb-0">Total Applications</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center bg-warning text-white">
+                    <div class="card-body">
+                        <h2>25</h2>
+                        <p class="mb-0">Pending Review</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center bg-info text-white">
+                    <div class="card-body">
+                        <h2>15</h2>
+                        <p class="mb-0">In Interview</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center bg-success text-white">
+                    <div class="card-body">
+                        <h2>85</h2>
+                        <p class="mb-0">Processed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add New Application -->
+        <div class="card section-card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="bi bi-plus-circle"></i> Add New Application</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="form-label">Applicant Name</label>
+                        <input type="text" class="form-control" placeholder="Full Name">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" placeholder="email@example.com">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Contact Number</label>
+                        <input type="tel" class="form-control" placeholder="+94 77 123 4567">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Applied Position</label>
+                        <select class="form-select">
+                            <option>Trainee Associate</option>
+                            <option>Junior Associate</option>
+                            <option>Contract Staff - Grade 1</option>
+                            <option>Contract Staff - Grade 2</option>
+                            <option>Contract Staff - Grade 3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Upload CV</label>
+                        <input type="file" class="form-control" accept=".pdf,.doc,.docx">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">&nbsp;</label>
+                        <button class="btn btn-success w-100" onclick="addApplication()">
+                            <i class="bi bi-plus-circle"></i> Add Application
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter and Search -->
+        <div class="card section-card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="search-box">
+                            <i class="bi bi-search"></i>
+                            <input type="text" class="form-control" placeholder="Search by name, email, or position...">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Status</label>
+                        <select class="form-select">
+                            <option>All Status</option>
+                            <option>Pending Review</option>
+                            <option>Shortlisted</option>
+                            <option>Interview Scheduled</option>
+                            <option>Interview Completed</option>
+                            <option>Offer Sent</option>
+                            <option>Hired</option>
+                            <option>Rejected</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Applied Position</label>
+                        <select class="form-select">
+                            <option>All Positions</option>
+                            <option>Trainee Associate</option>
+                            <option>Junior Associate</option>
+                            <option>Contract Staff</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">&nbsp;</label>
+                        <button class="btn btn-primary w-100">
+                            <i class="bi bi-funnel"></i> Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Applications List -->
+        <div class="card section-card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-list-ul"></i> Applications List</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Application ID</th>
+                                <th>Applicant Name</th>
+                                <th>Email</th>
+                                <th>Contact</th>
+                                <th>Applied Position</th>
+                                <th>Application Date</th>
+                                <th>Status</th>
+                                <th>CV</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>APP001</td>
+                                <td>Robert Taylor</td>
+                                <td>robert.taylor@example.com</td>
+                                <td>+94 77 111 2222</td>
+                                <td>Trainee Associate</td>
+                                <td>2024-01-10</td>
+                                <td><span class="badge status-badge status-pending">Pending Review</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary" onclick="viewCV('APP001')">
+                                        <i class="bi bi-file-earmark-pdf"></i> View CV
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewApplication('APP001')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success" onclick="updateStatus('APP001')">
+                                        <i class="bi bi-check-circle"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>APP002</td>
+                                <td>Emily Davis</td>
+                                <td>emily.davis@example.com</td>
+                                <td>+94 77 222 3333</td>
+                                <td>Junior Associate</td>
+                                <td>2024-01-12</td>
+                                <td><span class="badge status-badge status-active">Shortlisted</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary" onclick="viewCV('APP002')">
+                                        <i class="bi bi-file-earmark-pdf"></i> View CV
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewApplication('APP002')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success" onclick="updateStatus('APP002')">
+                                        <i class="bi bi-check-circle"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>APP003</td>
+                                <td>Michael Wilson</td>
+                                <td>michael.wilson@example.com</td>
+                                <td>+94 77 333 4444</td>
+                                <td>Contract Staff - Grade 2</td>
+                                <td>2024-01-08</td>
+                                <td><span class="badge status-badge status-active">Interview Scheduled</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary" onclick="viewCV('APP003')">
+                                        <i class="bi bi-file-earmark-pdf"></i> View CV
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewApplication('APP003')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success" onclick="updateStatus('APP003')">
+                                        <i class="bi bi-check-circle"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>APP004</td>
+                                <td>Lisa Anderson</td>
+                                <td>lisa.anderson@example.com</td>
+                                <td>+94 77 444 5555</td>
+                                <td>Trainee Associate</td>
+                                <td>2024-01-14</td>
+                                <td><span class="badge status-badge status-approved">Hired</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary" onclick="viewCV('APP004')">
+                                        <i class="bi bi-file-earmark-pdf"></i> View CV
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewApplication('APP004')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-warning" onclick="createProfile('APP004')">
+                                        <i class="bi bi-person-plus"></i> Create Profile
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>APP005</td>
+                                <td>David Martinez</td>
+                                <td>david.martinez@example.com</td>
+                                <td>+94 77 555 6666</td>
+                                <td>Contract Staff - Grade 1</td>
+                                <td>2024-01-05</td>
+                                <td><span class="badge status-badge status-rejected">Rejected</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary" onclick="viewCV('APP005')">
+                                        <i class="bi bi-file-earmark-pdf"></i> View CV
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewApplication('APP005')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-secondary" onclick="viewRejectionReason('APP005')">
+                                        <i class="bi bi-info-circle"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Application Timeline (Modal Content Example) -->
+        <div class="card section-card mt-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="bi bi-clock-history"></i> Application Process Timeline</h5>
+            </div>
+            <div class="card-body">
+                <div class="timeline-item">
+                    <h6>Application Received</h6>
+                    <p class="text-muted small">2024-01-10 10:30 AM</p>
+                    <p>Application submitted successfully</p>
+                </div>
+                <div class="timeline-item">
+                    <h6>CV Review</h6>
+                    <p class="text-muted small">2024-01-11 02:15 PM</p>
+                    <p>CV reviewed by HR team</p>
+                </div>
+                <div class="timeline-item">
+                    <h6>Shortlisted</h6>
+                    <p class="text-muted small">2024-01-12 09:00 AM</p>
+                    <p>Candidate shortlisted for interview</p>
+                </div>
+                <div class="timeline-item">
+                    <h6>Interview Scheduled</h6>
+                    <p class="text-muted small">2024-01-15 11:00 AM</p>
+                    <p>Interview scheduled for 2024-01-20 at 2:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <img src="https://static.sliit.lk/wp-content/uploads/2017/12/sliit-web-logo.png" alt="SLIIT Logo" class="footer-logo mb-2" onerror="this.style.display='none';">
+            <p class="mb-0"><strong>Sri Lanka Institute of Information Technology (SLIIT)</strong></p>
+            <p class="mb-0">&copy; 2024 HR Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        function addApplication() {
+            alert('Application added successfully!');
+        }
+
+        function viewCV(appId) {
+            alert('Viewing CV for Application ID: ' + appId);
+        }
+
+        function viewApplication(appId) {
+            alert('Viewing full application details for Application ID: ' + appId);
+        }
+
+        function updateStatus(appId) {
+            alert('Update status for Application ID: ' + appId);
+        }
+
+        function createProfile(appId) {
+            if(confirm('Create employee profile from this application?')) {
+                window.location.href = 'agent-profile.html';
+            }
+        }
+
+        function viewRejectionReason(appId) {
+            alert('Viewing rejection reason for Application ID: ' + appId);
+        }
+    </script>
+</body>
+</html>
+
