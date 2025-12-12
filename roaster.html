@@ -141,142 +141,10 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <strong>John Doe</strong><br>
-                                    <small class="text-muted">EMP001</small>
-                                </td>
-                                <td>
-                                    <span class="badge bg-success">8 AM - 4 PM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-success">8 AM - 4 PM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-success">8 AM - 4 PM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-success">8 AM - 4 PM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-success">8 AM - 4 PM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-secondary">Off</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-secondary">Off</span>
-                                </td>
-                                <td><strong>40 hours</strong></td>
-                                <td>
-                                    <button class="btn btn-sm btn-warning" onclick="editSchedule('EMP001')">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Jane Smith</strong><br>
-                                    <small class="text-muted">EMP002</small>
-                                </td>
-                                <td>
-                                    <span class="badge bg-info">4 PM - 12 AM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-info">4 PM - 12 AM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-info">4 PM - 12 AM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-info">4 PM - 12 AM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-info">4 PM - 12 AM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-warning">Leave</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-secondary">Off</span>
-                                </td>
-                                <td><strong>40 hours</strong></td>
-                                <td>
-                                    <button class="btn btn-sm btn-warning" onclick="editSchedule('EMP002')">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Mike Johnson</strong><br>
-                                    <small class="text-muted">EMP003</small>
-                                </td>
-                                <td>
-                                    <span class="badge bg-success">8 AM - 4 PM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-success">8 AM - 4 PM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-warning">Leave</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-success">8 AM - 4 PM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-success">8 AM - 4 PM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-success">8 AM - 4 PM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-secondary">Off</span>
-                                </td>
-                                <td><strong>32 hours</strong></td>
-                                <td>
-                                    <button class="btn btn-sm btn-warning" onclick="editSchedule('EMP003')">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Sarah Williams</strong><br>
-                                    <small class="text-muted">EMP004</small>
-                                </td>
-                                <td>
-                                    <span class="badge bg-dark text-white">12 AM - 8 AM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-dark text-white">12 AM - 8 AM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-dark text-white">12 AM - 8 AM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-dark text-white">12 AM - 8 AM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-dark text-white">12 AM - 8 AM</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-secondary">Off</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-secondary">Off</span>
-                                </td>
-                                <td><strong>40 hours</strong></td>
-                                <td>
-                                    <button class="btn btn-sm btn-warning" onclick="editSchedule('EMP004')">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
+                        <tbody id="roasterTableBody"></tbody>
                     </table>
                 </div>
+                <div class="table-pagination" id="roasterPagination"></div>
             </div>
         </div>
 
@@ -389,6 +257,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/data.js"></script>
     <script src="js/main.js"></script>
     <script>
         function generateRoaster() {
@@ -418,6 +287,51 @@
         function clearSelection() {
             alert('Clearing selection...');
         }
+
+        function renderRoasterTable() {
+            const employees = DataStore.getEmployees();
+            const roaster = DataStore.getRoaster();
+            const badges = {
+                'Morning': 'bg-success',
+                'Evening': 'bg-info',
+                'Night': 'bg-dark text-white',
+                'Leave': 'bg-warning',
+                'Off': 'bg-secondary'
+            };
+
+            createPaginatedTable({
+                data: roaster,
+                tableBodySelector: '#roasterTableBody',
+                paginationSelector: '#roasterPagination',
+                pageSize: 10,
+                renderRow: (row) => {
+                    const emp = employees.find(e => e.id === row.employeeId) || {};
+                    const dayCells = (row.days || []).map(day => {
+                        const cls = badges[day] || 'bg-secondary';
+                        return `<td><span class="badge ${cls}">${day}</span></td>`;
+                    }).join('');
+                    return `
+                        <tr>
+                            <td>
+                                <strong>${emp.name || row.employeeId}</strong><br>
+                                <small class="text-muted">${row.employeeId}</small>
+                            </td>
+                            ${dayCells}
+                            <td><strong>${row.hours || 0} hours</strong></td>
+                            <td>
+                                <button class="btn btn-sm btn-warning" onclick="editSchedule('${row.employeeId}')">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderRoasterTable();
+        });
     </script>
 </body>
 </html>

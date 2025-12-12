@@ -146,66 +146,11 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>EMP001</td>
-                                <td>John Doe</td>
-                                <td>09:00 AM</td>
-                                <td>05:30 PM</td>
-                                <td>8h 30m</td>
-                                <td><span class="badge bg-success">Present</span></td>
-                                <td><i class="bi bi-fingerprint"></i> Fingerprint</td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" onclick="viewDetails('EMP001')">
-                                        <i class="bi bi-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>EMP002</td>
-                                <td>Jane Smith</td>
-                                <td>08:45 AM</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td><span class="badge bg-warning">Checked In</span></td>
-                                <td><i class="bi bi-link-45deg"></i> Link</td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" onclick="viewDetails('EMP002')">
-                                        <i class="bi bi-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>EMP003</td>
-                                <td>Mike Johnson</td>
-                                <td>09:15 AM</td>
-                                <td>06:00 PM</td>
-                                <td>8h 45m</td>
-                                <td><span class="badge bg-success">Present</span></td>
-                                <td><i class="bi bi-fingerprint"></i> Fingerprint</td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" onclick="viewDetails('EMP003')">
-                                        <i class="bi bi-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>EMP004</td>
-                                <td>Sarah Williams</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td><span class="badge bg-danger">Absent</span></td>
-                                <td>-</td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" onclick="viewDetails('EMP004')">
-                                        <i class="bi bi-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                        <tbody id="attendanceTableBody">
                         </tbody>
                     </table>
                 </div>
+                <div class="table-pagination" id="attendancePagination"></div>
             </div>
         </div>
 
@@ -220,7 +165,7 @@
                         <div class="card stats-card">
                             <div class="card-body">
                                 <h6 class="text-muted">Total Working Days</h6>
-                                <h3>22</h3>
+                                <h3 id="workingDaysStat">0</h3>
                             </div>
                         </div>
                     </div>
@@ -228,7 +173,7 @@
                         <div class="card stats-card">
                             <div class="card-body">
                                 <h6 class="text-muted">Present</h6>
-                                <h3 class="text-success">20</h3>
+                                <h3 class="text-success" id="presentStat">0</h3>
                             </div>
                         </div>
                     </div>
@@ -236,7 +181,7 @@
                         <div class="card stats-card">
                             <div class="card-body">
                                 <h6 class="text-muted">Absent</h6>
-                                <h3 class="text-danger">2</h3>
+                                <h3 class="text-danger" id="absentStat">0</h3>
                             </div>
                         </div>
                     </div>
@@ -244,7 +189,7 @@
                         <div class="card stats-card">
                             <div class="card-body">
                                 <h6 class="text-muted">On Leave</h6>
-                                <h3 class="text-warning">0</h3>
+                                <h3 class="text-warning" id="leaveStat">0</h3>
                             </div>
                         </div>
                     </div>
@@ -437,6 +382,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/data.js"></script>
     <script src="js/main.js"></script>
     <script src="js/attendance.js"></script>
     <script>
@@ -634,6 +580,68 @@
             bootstrap.Modal.getInstance(document.getElementById('settingsModal')).hide();
         }
 
+        function renderTodayAttendance() {
+            const today = new Date().toISOString().split('T')[0];
+            const employees = DataStore.getEmployees();
+            const records = DataStore.getAttendanceForDate(today);
+            const dataset = records.map(record => {
+                const emp = employees.find(e => e.id === record.employeeId) || {};
+                const status = record.type === 'absent'
+                    ? { label: 'Absent', cls: 'bg-danger' }
+                    : record.checkIn && record.checkOut
+                        ? { label: 'Present', cls: 'bg-success' }
+                        : record.checkIn
+                            ? { label: 'Checked In', cls: 'bg-warning' }
+                            : { label: 'Pending', cls: 'bg-secondary' };
+
+                return {
+                    ...record,
+                    name: emp.name || 'Unknown',
+                    status
+                };
+            });
+
+            createPaginatedTable({
+                data: dataset,
+                tableBodySelector: '#attendanceTableBody',
+                paginationSelector: '#attendancePagination',
+                pageSize: 10,
+                renderRow: (row) => `
+                    <tr>
+                        <td>${row.employeeId}</td>
+                        <td>${row.name}</td>
+                        <td>${row.checkIn || '-'}</td>
+                        <td>${row.checkOut || '-'}</td>
+                        <td>${row.hours ? row.hours + 'h' : '-'}</td>
+                        <td><span class="badge ${row.status.cls}">${row.status.label}</span></td>
+                        <td>${row.method || '-'}</td>
+                        <td>
+                            <button class="btn btn-sm btn-info" onclick="viewDetails('${row.employeeId}')">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `
+            });
+        }
+
+        function renderMonthlySummary(month, year) {
+            const employees = DataStore.getEmployees();
+            const records = DataStore.getAttendance().filter(r => {
+                const d = new Date(r.date);
+                return d.getMonth() === month - 1 && d.getFullYear() === year;
+            });
+            const workingDays = new Set(records.map(r => r.date)).size;
+            const present = records.filter(r => r.checkIn).length;
+            const leave = records.filter(r => r.type === 'short_leave').length;
+            const absent = Math.max(0, workingDays * employees.length - present);
+
+            document.getElementById('workingDaysStat').textContent = workingDays || 0;
+            document.getElementById('presentStat').textContent = present || 0;
+            document.getElementById('absentStat').textContent = absent || 0;
+            document.getElementById('leaveStat').textContent = leave || 0;
+        }
+
         // Handle link validity change
         document.addEventListener('DOMContentLoaded', function() {
             const validitySelect = document.getElementById('linkValidity');
@@ -647,6 +655,9 @@
                     }
                 });
             }
+            renderTodayAttendance();
+            const now = new Date();
+            renderMonthlySummary(now.getMonth() + 1, now.getFullYear());
         });
 
         function viewDetails(empId) {

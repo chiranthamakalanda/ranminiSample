@@ -202,105 +202,10 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>EMP001</td>
-                                <td>John Doe</td>
-                                <td><span class="badge bg-primary">Trainee Associate</span></td>
-                                <td>-</td>
-                                <td>22</td>
-                                <td>Rs. 33,000</td>
-                                <td>Rs. 0</td>
-                                <td><strong>Rs. 33,000</strong></td>
-                                <td><span class="badge bg-success">Paid</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" onclick="viewPayroll('EMP001')">
-                                        <i class="bi bi-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-success" onclick="downloadSlip('EMP001')">
-                                        <i class="bi bi-download"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>EMP002</td>
-                                <td>Jane Smith</td>
-                                <td><span class="badge bg-success">Junior Associate</span></td>
-                                <td>-</td>
-                                <td>22</td>
-                                <td>Rs. 44,000</td>
-                                <td>Rs. 0</td>
-                                <td><strong>Rs. 44,000</strong></td>
-                                <td><span class="badge bg-success">Paid</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" onclick="viewPayroll('EMP002')">
-                                        <i class="bi bi-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-success" onclick="downloadSlip('EMP002')">
-                                        <i class="bi bi-download"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>EMP003</td>
-                                <td>Mike Johnson</td>
-                                <td><span class="badge bg-warning">Contract Staff</span></td>
-                                <td>Grade 1</td>
-                                <td>-</td>
-                                <td>Rs. 85,000</td>
-                                <td>Rs. 5,000</td>
-                                <td><strong>Rs. 80,000</strong></td>
-                                <td><span class="badge bg-warning">Pending</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" onclick="viewPayroll('EMP003')">
-                                        <i class="bi bi-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-success" onclick="downloadSlip('EMP003')">
-                                        <i class="bi bi-download"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>EMP004</td>
-                                <td>Sarah Williams</td>
-                                <td><span class="badge bg-warning">Contract Staff</span></td>
-                                <td>Grade 2</td>
-                                <td>-</td>
-                                <td>Rs. 65,000</td>
-                                <td>Rs. 3,000</td>
-                                <td><strong>Rs. 62,000</strong></td>
-                                <td><span class="badge bg-success">Paid</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" onclick="viewPayroll('EMP004')">
-                                        <i class="bi bi-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-success" onclick="downloadSlip('EMP004')">
-                                        <i class="bi bi-download"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>EMP005</td>
-                                <td>David Brown</td>
-                                <td><span class="badge bg-warning">Contract Staff</span></td>
-                                <td>Grade 3</td>
-                                <td>-</td>
-                                <td>Rs. 42,000</td>
-                                <td>Rs. 2,000</td>
-                                <td><strong>Rs. 40,000</strong></td>
-                                <td><span class="badge bg-success">Paid</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" onclick="viewPayroll('EMP005')">
-                                        <i class="bi bi-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-success" onclick="downloadSlip('EMP005')">
-                                        <i class="bi bi-download"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
+                        <tbody id="payrollTableBody"></tbody>
                     </table>
                 </div>
+                <div class="table-pagination" id="payrollPagination"></div>
             </div>
         </div>
 
@@ -310,7 +215,7 @@
                 <div class="card text-center bg-primary text-white">
                     <div class="card-body">
                         <h6>Total Employees</h6>
-                        <h2>150</h2>
+                        <h2 id="payrollTotalEmployees">0</h2>
                     </div>
                 </div>
             </div>
@@ -318,7 +223,7 @@
                 <div class="card text-center bg-success text-white">
                     <div class="card-body">
                         <h6>Total Payroll</h6>
-                        <h2>Rs. 4,500,000</h2>
+                        <h2 id="payrollTotalAmount">Rs. 0</h2>
                     </div>
                 </div>
             </div>
@@ -326,7 +231,7 @@
                 <div class="card text-center bg-warning text-white">
                     <div class="card-body">
                         <h6>Pending Payments</h6>
-                        <h2>5</h2>
+                        <h2 id="payrollPendingCount">0</h2>
                     </div>
                 </div>
             </div>
@@ -334,7 +239,7 @@
                 <div class="card text-center bg-info text-white">
                     <div class="card-body">
                         <h6>Paid This Month</h6>
-                        <h2>145</h2>
+                        <h2 id="payrollPaidCount">0</h2>
                     </div>
                 </div>
             </div>
@@ -351,6 +256,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/data.js"></script>
     <script src="js/main.js"></script>
     <script>
         function viewCategory(category) {
@@ -364,6 +270,66 @@
         function downloadSlip(empId) {
             alert('Downloading payslip for Employee ID: ' + empId);
         }
+
+        function renderPayrollTable() {
+            const employees = DataStore.getEmployees();
+            const payroll = DataStore.getPayroll();
+
+            const dataset = payroll.map(row => {
+                const emp = employees.find(e => e.id === row.employeeId) || {};
+                return {
+                    ...row,
+                    name: emp.name || row.employeeId,
+                    category: row.category || emp.designation || 'N/A'
+                };
+            });
+
+            createPaginatedTable({
+                data: dataset,
+                tableBodySelector: '#payrollTableBody',
+                paginationSelector: '#payrollPagination',
+                pageSize: 10,
+                renderRow: (row) => `
+                    <tr>
+                        <td>${row.employeeId}</td>
+                        <td>${row.name}</td>
+                        <td><span class="badge ${row.category.includes('Contract') ? 'bg-warning' : row.category.includes('Junior') ? 'bg-success' : 'bg-primary'}">${row.category}</span></td>
+                        <td>${row.grade || '-'}</td>
+                        <td>${row.workingDays || '-'}</td>
+                        <td>Rs. ${row.baseSalary?.toLocaleString()}</td>
+                        <td>Rs. ${row.deductions?.toLocaleString()}</td>
+                        <td><strong>Rs. ${row.netSalary?.toLocaleString()}</strong></td>
+                        <td><span class="badge ${row.status === 'Paid' ? 'bg-success' : 'bg-warning'}">${row.status}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-info" onclick="viewPayroll('${row.employeeId}')">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-success" onclick="downloadSlip('${row.employeeId}')">
+                                <i class="bi bi-download"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `
+            });
+        }
+
+        function renderPayrollSummary() {
+            const payroll = DataStore.getPayroll();
+            const employees = DataStore.getEmployees();
+            const totalAmount = payroll.reduce((sum, row) => sum + (row.netSalary || 0), 0);
+            const paid = payroll.filter(r => r.status === 'Paid').length;
+            const pending = payroll.filter(r => r.status !== 'Paid').length;
+
+            document.getElementById('payrollTotalEmployees').textContent = employees.length;
+            document.getElementById('payrollTotalAmount').textContent = `Rs. ${totalAmount.toLocaleString()}`;
+            document.getElementById('payrollPendingCount').textContent = pending;
+            document.getElementById('payrollPaidCount').textContent = paid;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderPayrollTable();
+            renderPayrollSummary();
+        });
     </script>
 </body>
 </html>

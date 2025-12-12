@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize logo loading
     initLogoLoading();
+    initNavPersistence();
     // Initialize animations
     initAnimations();
     initSmoothScroll();
@@ -144,6 +145,7 @@ function loadPage(url) {
                 
                 // Reinitialize scripts
                 initAnimations();
+                initNavPersistence();
                 initAJAXNavigation();
                 initFormAnimations();
                 initTableAnimations();
@@ -386,4 +388,109 @@ document.querySelectorAll('.search-box input').forEach(searchInput => {
         }, 300);
     });
 });
+
+// Persist active navigation across reloads and sessions
+function initNavPersistence() {
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const savedPage = localStorage.getItem('activeNav');
+
+    function setActive(link) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        if (link) {
+            link.classList.add('active');
+        }
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            const href = link.getAttribute('href');
+            if (href) {
+                localStorage.setItem('activeNav', href);
+            }
+        });
+    });
+
+    const match = Array.from(navLinks).find(link => {
+        const href = link.getAttribute('href');
+        return href === currentPage || href === savedPage;
+    });
+
+    setActive(match);
+}
+
+// Lightweight pagination utility (max 50 rows per page)
+function createPaginatedTable({ data = [], tableBodySelector, paginationSelector, pageSize = 10, renderRow }) {
+    const tbody = document.querySelector(tableBodySelector);
+    const pager = document.querySelector(paginationSelector);
+    if (!tbody || !pager || typeof renderRow !== 'function') {
+        return;
+    }
+
+    const size = Math.min(Math.max(pageSize, 1), 50);
+    let currentPage = 1;
+    const totalPages = Math.max(1, Math.ceil(data.length / size));
+
+    function renderPage() {
+        const start = (currentPage - 1) * size;
+        const end = start + size;
+        const slice = data.slice(start, end);
+        tbody.innerHTML = slice.map(renderRow).join('');
+        renderPager();
+    }
+
+    function renderPager() {
+        const buttons = [];
+        const addButton = (label, targetPage, disabled = false, active = false) => {
+            buttons.push(`
+                <li class="page-item ${disabled ? 'disabled' : ''} ${active ? 'active' : ''}">
+                    <a class="page-link" href="#" data-page="${targetPage}">${label}</a>
+                </li>
+            `);
+        };
+
+        addButton('&laquo;', currentPage - 1, currentPage === 1);
+
+        const range = Array.from({ length: totalPages }, (_, i) => i + 1).filter(p => {
+            if (totalPages <= 7) return true;
+            if (p === 1 || p === totalPages) return true;
+            return Math.abs(p - currentPage) <= 2;
+        });
+
+        let last = 0;
+        range.forEach(p => {
+            if (p - last > 1) {
+                buttons.push('<li class="page-item disabled"><span class="page-link">...</span></li>');
+            }
+            addButton(p, p, false, p === currentPage);
+            last = p;
+        });
+
+        addButton('&raquo;', currentPage + 1, currentPage === totalPages);
+        pager.innerHTML = `<ul class="pagination pagination-sm mb-0 justify-content-end">${buttons.join('')}</ul>`;
+
+        pager.querySelectorAll('.page-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = parseInt(link.getAttribute('data-page'));
+                if (!isNaN(target) && target >= 1 && target <= totalPages && target !== currentPage) {
+                    currentPage = target;
+                    renderPage();
+                }
+            });
+        });
+    }
+
+    renderPage();
+    return {
+        refresh(newData) {
+            data = newData || data;
+            currentPage = 1;
+            renderPage();
+        }
+    };
+}
+
+// Expose pagination globally for inline scripts
+window.createPaginatedTable = createPaginatedTable;
 

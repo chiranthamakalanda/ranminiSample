@@ -29,6 +29,7 @@ main {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 1rem 0;
     backdrop-filter: blur(10px);
+    flex-wrap: wrap;
 }
 
 .navbar-brand {
@@ -100,6 +101,22 @@ main {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     letter-spacing: 0.3px;
+}
+
+.navbar-nav {
+    gap: 0.2rem;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-brand {
+        margin-bottom: 0.5rem;
+    }
+    .navbar-collapse {
+        padding: 0.5rem 0;
+    }
+    .navbar-nav {
+        align-items: flex-start;
+    }
 }
 
 .nav-link::before {
@@ -305,6 +322,26 @@ main {
     position: relative;
     overflow: hidden;
     animation: fadeInDown 0.6s ease;
+}
+
+.page-header .container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.page-header .page-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+@media (min-width: 992px) {
+    .page-header .container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
 }
 
 .page-header::before {
@@ -697,5 +734,16 @@ html {
         height: 45px;
         min-width: 100px;
     }
+}
+
+/* Table pagination */
+.table-pagination {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 0.5rem;
+}
+
+.pagination .page-link {
+    border-radius: 8px;
 }
 

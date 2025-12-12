@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Admin - Security & Governance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://static.sliit.lk/wp-content/uploads/2017/12/sliit-web-logo.png" alt="SLIIT Logo" class="sliit-logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="super-admin.html"><i class="bi bi-shield-lock"></i> Security</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4">
+        <div class="page-header">
+            <div class="container">
+                <h1><i class="bi bi-shield-check"></i> Super Admin Security Dashboard</h1>
+                <p class="mb-0">Manage HR permissions, sessions, password policy, and unauthorized activity</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <h6 class="text-muted">Active Sessions</h6>
+                        <h3 id="activeSessions">0</h3>
+                        <small class="text-muted">30 min expiry window</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <h6 class="text-muted">Unauthorized Attempts</h6>
+                        <h3 class="text-danger" id="unauthCount">0</h3>
+                        <small class="text-muted">Last 50 entries</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <h6 class="text-muted">Passwords Expiring</h6>
+                        <h3 class="text-warning" id="pwdExpiring">0</h3>
+                        <small class="text-muted">Within 7 days</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <h6 class="text-muted">HR Staff</h6>
+                        <h3 class="text-primary" id="hrCount">0</h3>
+                        <small class="text-muted">With elevated permissions</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-2">
+            <div class="col-lg-6">
+                <div class="card section-card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-people"></i> HR Permissions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Role</th>
+                                        <th>Can Manage Payroll</th>
+                                        <th>Can Manage Attendance</th>
+                                        <th>Can Manage Hiring</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="hrPermissionsBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card section-card">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="mb-0"><i class="bi bi-shield-exclamation"></i> Unauthorized Attempts</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Time</th>
+                                        <th>IP</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="unauthTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-2">
+            <div class="col-lg-6">
+                <div class="card section-card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="bi bi-key"></i> Password Policy</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-2">Enforce password expiry, rotation, and MFA prompts.</p>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Expiry (days)</label>
+                                <input type="number" class="form-control" id="pwdExpiryDays" value="90" min="15" max="365">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Warn Before (days)</label>
+                                <input type="number" class="form-control" id="pwdWarnDays" value="7" min="1" max="30">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary mt-3" id="applyPolicyBtn">
+                            <i class="bi bi-save"></i> Apply Policy
+                        </button>
+                        <div class="alert alert-success d-none mt-2" id="policyAlert">Policy updated (demo)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card section-card">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="mb-0"><i class="bi bi-clock-history"></i> Session Management</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-2">Set session lifetime and auto-logout on idle.</p>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Session Timeout (minutes)</label>
+                                <input type="number" class="form-control" id="sessionTimeout" value="30" min="5" max="240">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Idle Kick (minutes)</label>
+                                <input type="number" class="form-control" id="idleTimeout" value="15" min="1" max="120">
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary mt-3" id="applySessionBtn">
+                            <i class="bi bi-shield-lock"></i> Update Session Policy
+                        </button>
+                        <div class="alert alert-info d-none mt-2" id="sessionAlert">Session policy updated (demo)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Demo mode: allow direct navigation without auth/session
+        // const user = Auth.getCurrentUser();
+        // if (!user || user.role !== 'superadmin') {
+        //     window.location.href = 'login.html';
+        // }
+
+        function populateUnauthorized() {
+            const logs = Auth.getUnauthorizedLogs();
+            const tbody = document.getElementById('unauthTableBody');
+            document.getElementById('unauthCount').textContent = logs.length;
+            if (!logs.length) {
+                tbody.innerHTML = '<tr><td colspan="3" class="text-muted text-center">No attempts</td></tr>';
+                return;
+            }
+            tbody.innerHTML = logs.slice(0, 8).map(log => `
+                <tr>
+                    <td>${log.username || '-'}</td>
+                    <td>${new Date(log.at).toLocaleString()}</td>
+                    <td>${log.ip || '-'}</td>
+                </tr>
+            `).join('');
+        }
+
+        function populatePermissions() {
+            const accounts = JSON.parse(localStorage.getItem('accounts') || '[]')
+                .filter(acc => acc.role === 'admin' || acc.role === 'superadmin');
+            document.getElementById('hrCount').textContent = accounts.length;
+            const tbody = document.getElementById('hrPermissionsBody');
+            if (!accounts.length) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-muted text-center">No HR/admin users</td></tr>';
+                return;
+            }
+            tbody.innerHTML = accounts.map(acc => `
+                <tr>
+                    <td>${acc.username}</td>
+                    <td>${acc.role}</td>
+                    <td><input type="checkbox" class="form-check-input" checked disabled></td>
+                    <td><input type="checkbox" class="form-check-input" checked disabled></td>
+                    <td><input type="checkbox" class="form-check-input" checked disabled></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" onclick="resetPassword('${acc.username}')">
+                            <i class="bi bi-arrow-counterclockwise"></i> Reset
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function populateStats() {
+            const accounts = JSON.parse(localStorage.getItem('accounts') || '[]');
+            const warnDays = parseInt(document.getElementById('pwdWarnDays').value, 10) || 7;
+            const expiring = accounts.filter(acc => Auth.isPasswordExpired(acc.username, warnDays)).length;
+            document.getElementById('pwdExpiring').textContent = expiring;
+            // sessions (demo: count sessionStorage presence)
+            document.getElementById('activeSessions').textContent = sessionStorage.getItem('currentUser') ? 1 : 0;
+        }
+
+        function resetPassword(username) {
+            const newPwd = Auth.generatePassword();
+            const accounts = JSON.parse(localStorage.getItem('accounts') || '[]');
+            const user = accounts.find(a => a.username === username);
+            if (user) {
+                user.password = newPwd;
+                user.passwordLastReset = Date.now();
+                localStorage.setItem('accounts', JSON.stringify(accounts));
+                alert(`Password reset for ${username}. New: ${newPwd}`);
+            }
+        }
+
+        document.getElementById('applyPolicyBtn').addEventListener('click', () => {
+            document.getElementById('policyAlert').classList.remove('d-none');
+        });
+
+        document.getElementById('applySessionBtn').addEventListener('click', () => {
+            document.getElementById('sessionAlert').classList.remove('d-none');
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'login.html';
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            populateUnauthorized();
+            populatePermissions();
+            populateStats();
+        });
+    </script>
+</body>
+</html>
+

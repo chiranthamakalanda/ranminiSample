@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRMS - Create Employee Account</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card shadow-lg">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://static.sliit.lk/wp-content/uploads/2017/12/sliit-web-logo.png" alt="Logo" class="sliit-logo" style="max-height:50px;">
+                            <div class="ms-2">
+                                <h4 class="mb-0">Create Employee Account</h4>
+                                <small class="text-muted">Admin only</small>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Employee ID</label>
+                                <input type="text" class="form-control" id="empIdInput" placeholder="EMP010">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="empNameInput" placeholder="Full name">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" id="usernameInput" placeholder="username">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="passwordInput" placeholder="Auto-generated">
+                                    <button class="btn btn-outline-secondary" type="button" id="genPwdBtn">Generate</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Role</label>
+                                <select class="form-select" id="roleSelect"></select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contact Email</label>
+                                <input type="email" class="form-control" id="emailInput" placeholder="email@example.com">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contact Number</label>
+                                <input type="tel" class="form-control" id="contactInput" placeholder="+94 77 000 0000">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Designation</label>
+                                <input type="text" class="form-control" id="designationInput" placeholder="Junior Associate">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-100 mt-3" id="createAccountBtn">
+                            <i class="bi bi-person-plus"></i> Create Account
+                        </button>
+                        <div class="alert mt-3 d-none" id="signupAlert"></div>
+                        <div class="text-center mt-3">
+                            <a href="login.html">Back to login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        function loadRoles() {
+            const roles = DataStore.getRoles();
+            const select = document.getElementById('roleSelect');
+            select.innerHTML = roles.map(r => `<option value="${r.id}">${r.name}</option>`).join('');
+        }
+
+        function addEmployeeRecord(emp) {
+            const employees = DataStore.getEmployees();
+            employees.push(emp);
+            localStorage.setItem('employees', JSON.stringify(employees));
+        }
+
+        document.getElementById('genPwdBtn').addEventListener('click', () => {
+            document.getElementById('passwordInput').value = Auth.generatePassword();
+        });
+
+        document.getElementById('createAccountBtn').addEventListener('click', () => {
+            const alertBox = document.getElementById('signupAlert');
+            const employee = {
+                id: document.getElementById('empIdInput').value.trim(),
+                name: document.getElementById('empNameInput').value.trim(),
+                designation: document.getElementById('designationInput').value.trim(),
+                role: document.getElementById('roleSelect').value,
+                email: document.getElementById('emailInput').value.trim(),
+                contact: document.getElementById('contactInput').value.trim(),
+                isContract: document.getElementById('roleSelect').value.startsWith('contract')
+            };
+            const username = document.getElementById('usernameInput').value.trim();
+            const password = document.getElementById('passwordInput').value.trim() || Auth.generatePassword();
+
+            try {
+                Auth.createEmployeeAccount({
+                    username,
+                    password,
+                    roleId: employee.role,
+                    employeeId: employee.id
+                });
+                addEmployeeRecord(employee);
+                alertBox.className = 'alert alert-success';
+                alertBox.textContent = `Account created. Share credentials with employee. Username: ${username}, Password: ${password}`;
+                alertBox.classList.remove('d-none');
+            } catch (err) {
+                alertBox.className = 'alert alert-danger';
+                alertBox.textContent = err.message;
+                alertBox.classList.remove('d-none');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', loadRoles);
+    </script>
+</body>
+</html>
+
+
