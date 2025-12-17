@@ -18,9 +18,6 @@
   <rect x="130" y="90" width="20" height="20" fill="#4a5568" opacity="0.3"/>
   <!-- Lion Symbol (Simplified) -->
   <circle cx="100" cy="75" r="8" fill="#ff6b35"/>
-  <!-- SLIIT Text -->
-  <text x="100" y="130" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ff6b35" text-anchor="middle">SLIIT</text>
+  <!-- a Text -->
+  <text x="100" y="130" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ff6b35" text-anchor="middle">a</text>
 </svg>
-
-
-

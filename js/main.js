@@ -13,18 +13,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Handle logo loading with fallback
 function initLogoLoading() {
-    const logoImages = document.querySelectorAll('.sliit-logo, .footer-logo');
+    const logoImages = document.querySelectorAll('.a-logo, .footer-logo');
     
     logoImages.forEach(img => {
         // Try multiple possible paths
         const possiblePaths = [
-            'images/sliit-logo.png',
-            './images/sliit-logo.png',
-            'images/sliit-logo.svg',
-            './images/sliit-logo.svg',
-            '../images/sliit-logo.png',
-            'images/sliit-logo.jpg',
-            './images/sliit-logo.jpg',
+            'images/a-logo.png',
+            './images/a-logo.png',
+            'images/a-logo.svg',
+            './images/a-logo.svg',
+            '../images/a-logo.png',
+            'images/a-logo.jpg',
+            './images/a-logo.jpg',
             'images/logo.png',
             'images/logo.jpg'
         ];

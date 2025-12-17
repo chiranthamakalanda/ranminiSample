@@ -1,8 +1,8 @@
-SLIIT Logo Instructions
+a Logo Instructions
 ========================
 
-Please place the SLIIT logo file in this folder with the filename:
-sliit-logo.png
+Please place the a logo file in this folder with the filename:
+a-logo.png
 
 The logo should be:
 - PNG format (or update the file extension in HTML files if using a different format)
@@ -18,7 +18,7 @@ If your logo file has a different name, update the src attribute in all HTML fil
 - application-tracker.html
 - roaster.html
 
-Look for: <img src="images/sliit-logo.png" ...>
+Look for: <img src="images/a-logo.png" ...>
 
 
 
